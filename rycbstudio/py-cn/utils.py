@@ -45,6 +45,9 @@ class CONSTS:
         "布尔值": "bool",
         "真": "True",
         "假": "False",
+        "hz-": "#",
+        "kz-": "\"\"\"",
+        "-kz": "\"\"\"",
     }
     import os
     TRANS_PATH = f"{os.getenv('USERPROFILE')}\\Temp\\Local\\Py-CN\\"
@@ -158,7 +161,7 @@ def compileFile(file: str) -> str:
         Utils.log(f"There was a/many problem(s) was/were thrown!", Modes.ERR)
         Utils.log(f"The following information is received: {e.__doc__}", Modes.ERR)
         Utils.log(e.__str__(), Modes.ERR)
-    return "#-*- coding: utf-8 -*-\n"+translate(content)
+    return "#-*- coding: utf-8 -*-\n" + translate(content)
 
 
 def saveFile(contents: str, file: str):

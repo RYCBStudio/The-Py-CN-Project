@@ -31,6 +31,7 @@ if __name__ == '__main__':
         print(f"========== Start Program: \"{file + '.pycn'}\" ==========")
         os.system("python " + ".\\" + file + ".py")
         print("================= End Program =================")
+        os.system("pause>nul")
     else:
         file = input("未找到文件，请输入您的文件完整路径：(比如：C:\\xxx.pycn)")
         if utils.findFile(file):
@@ -38,11 +39,12 @@ if __name__ == '__main__':
             print(f"文件路径为：{file}")
             print(f"文件内容为：\n{utils.readFile(file)}")
             print("编译中...")
-            utils.saveFile(utils.compileFile(file), f".\\{file}.py")
+            utils.saveFile(utils.compileFile(file), f"{file}.py")
             print("[--------- The Py-CN Project Console ---------]")
             print(f">> $Run(\"{file + '.pycn'}\")")
             print(f"========== Start Program: \"{file + '.pycn'}\" ==========")
             os.system("python " + file)
             print("================= End Program =================")
+            os.system("pause>nul")
         else:
             print("未找到文件！")
