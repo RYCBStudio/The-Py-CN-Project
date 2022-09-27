@@ -1,4 +1,5 @@
 import datetime
+import os
 
 dt = datetime.datetime.now()
 
@@ -9,6 +10,7 @@ class CONSTS:
         "否则如果 ": "elif ",
         "如果 ": "if ",
         "否则": "else ",
+        "导入插件 ": "import 插件.",
     }
     TRANS_SN_DICTS = {
         "打印": "print",
@@ -172,3 +174,26 @@ def saveFile(contents: str, file: str):
         Utils.log(f"There was a/many problem(s) was/were thrown!", Modes.ERR)
         Utils.log(f"The following information is received: {e.__doc__}", Modes.ERR)
         Utils.log(e.__str__(), Modes.ERR)
+
+
+def hasPythonOrLowerThanRequired():
+    import sys
+
+    if sys.version_info < (0, 0):
+        print("未检测到 Python，请下载 Python！")
+    elif sys.version_info < (3, 10):
+        print("至少需要 Python 3.10！")
+
+    choice = input("输入 X 或 P 下载 Python 3.10.7（可能很慢）；输入 A 或 I 安装 Python 3.10.4；不输入或输入 E 退出程序！")
+
+    if choice.__eq__("X") | choice.__eq__("P"):
+        import urllib.request as ur
+        ur.urlretrieve("https://www.python.org/ftp/python/3.10.7/python-3.10.7-amd64.exe", "python-3.10.7-amd64.exe")
+        os.system("start .\\\"python-3.10.7-amd64.exe\"")
+    elif choice.__eq__("A") | choice.__eq__("I"):
+        os.system("start .\\\"python-3.10.4-amd64.exe\"")
+    else:
+        if choice.__eq__("E") | choice is None:
+            exit()
+        else:
+            hasPythonOrLowerThanRequired()
