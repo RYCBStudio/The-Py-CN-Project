@@ -1,6 +1,12 @@
+import ctypes
 import datetime
+import os
+import sys
 
 dt = datetime.datetime.now()
+
+cwd = os.getcwd()
+STD_OUTPUT_HANDLE = -11
 
 
 class CONSTS:
@@ -9,6 +15,7 @@ class CONSTS:
         "否则如果 ": "elif ",
         "如果 ": "if ",
         "否则": "else ",
+        "定义": "def",
     }
     TRANS_SN_DICTS = {
         "打印": "print",
@@ -71,12 +78,20 @@ class Ports:
 
 
 class Utils:
+    std_out_handle = ctypes.windll.kernel32.GetStdHandle(STD_OUTPUT_HANDLE)
+    BLUE = 0x09
+    GREEN = 0x0a
+    RED = 0x0c
+    YELLOW = 0x0e
+
+    # noinspection PyBroadException
     @staticmethod
     def log(data: str, mode: str = Modes.INFO, port: str = Ports.CLIENT):
         willBeWritenData: str = f"[{dt.strftime('%Y-%m-%d %H:%M:%S:') + str(datetime.datetime.now().microsecond)}] [{port}|{mode}] {data} \n"
         isExists: bool
+        # noinspection PyBroadException
         try:
-            with open(f".\\logs\\{dt.strftime('%Y-%m-%d')}_run.log", "r+") as f:
+            with open(f"{cwd}\\logs\\{dt.strftime('%Y-%m-%d')}_run.log", "r+") as f:
                 if "Stopping!" in f.read():
                     isExists = True
                 else:
@@ -84,16 +99,26 @@ class Utils:
         except:
             isExists = False
         if isExists:
-            with open(f".\\logs\\{dt.strftime('%Y-%m-%d')}_run.log", "w") as f:
+            with open(f"{cwd}\\logs\\{dt.strftime('%Y-%m-%d')}_run.log", "w") as f:
                 f.write("")
-            with open(f".\\logs\\{dt.strftime('%Y-%m-%d')}_run.log", "a+") as f:
+            with open(f"{cwd}\\logs\\{dt.strftime('%Y-%m-%d')}_run.log", "a+") as f:
                 f.write(willBeWritenData)
         else:
-            with open(f".\\logs\\{dt.strftime('%Y-%m-%d')}_run.log", "a+") as f:
+            with open(f"{cwd}\\logs\\{dt.strftime('%Y-%m-%d')}_run.log", "a+") as f:
                 f.write(willBeWritenData)
-        with open(f".\\logs\\{dt.strftime('%Y-%m-%d')}_run.log", "a+") as f:
+        with open(f"{cwd}\\logs\\{dt.strftime('%Y-%m-%d')}_run.log", "a+") as f:
             f.write(
                 f"[{dt.strftime('%Y-%m-%d %H:%M:%S:') + str(datetime.datetime.now().microsecond)}] [{port}|{mode}] Stopping! \n")
+
+    @staticmethod
+    def printColor(welcomeText: str, color: hex) -> None:
+        Utils.setColor(Utils.std_out_handle, color)
+        sys.stdout.write(welcomeText)
+        print()
+
+    @staticmethod
+    def setColor(__std_out_handle, color) -> None:
+        return ctypes.windll.kernel32.SetConsoleTextAttribute(__std_out_handle, color)
 
 
 def translate(args: str) -> str:
@@ -102,8 +127,10 @@ def translate(args: str) -> str:
     return args
 
 
+# noinspection PyBroadException
 def findPyFile(file: str) -> bool:
     if file != "":
+        # noinspection PyBroadException
         try:
             with open(f"{CONSTS.TRANS_PATH}py-cn.tmp", "a+") as f:
                 f.write("Py-CN Test File")
@@ -147,7 +174,9 @@ def readFile(file: str) -> str | int:
 #     return "错误"
 
 
+# noinspection PyGlobalUndefined
 def compileFile(file: str) -> str:
+    # noinspection PyGlobalUndefined
     global content
     content = ""
     try:
@@ -172,3 +201,37 @@ def saveFile(contents: str, file: str):
         Utils.log(f"There was a/many problem(s) was/were thrown!", Modes.ERR)
         Utils.log(f"The following information is received: {e.__doc__}", Modes.ERR)
         Utils.log(e.__str__(), Modes.ERR)
+
+
+def hasPythonOrLowerThanRequired():
+    import sys
+
+    if sys.version_info < (0, 0):
+        print("未检测到 Python，请下载 Python！")
+    elif sys.version_info < (3, 10):
+        print("至少需要 Python 3.10！")
+    else:
+        return None
+    choice = input("输入 X 或 P 下载 Python 3.10.7（可能很慢）；输入 A 或 I 安装 Python 3.10.7；不输入或输入 E 退出程序！")
+
+    if choice.__eq__("X") | choice.__eq__("P"):
+        import urllib.request as ur
+        ur.urlretrieve("https://www.python.org/ftp/python/3.10.7/python-3.10.7-amd64.exe", "python-3.10.7-amd64.exe")
+        os.system("start .\\\"python-3.10.7-amd64.exe\"")
+    elif choice.__eq__("A") | choice.__eq__("I"):
+        os.system("start .\\\"python-3.10.7-amd64.exe\"")
+    else:
+        if choice.__eq__("E") or choice is None or choice == "":
+            exit()
+        else:
+            hasPythonOrLowerThanRequired()
+
+
+def easterEgg():
+    month = dt.now().month
+    day = dt.now().day
+    if (month == 10 and day == 1) or (month == 9 and day == 30):
+        Utils.printColor(
+            "\n===HAPPY================================= 国庆节快乐! ===========NATIONAL===============DAY==\n",
+            Utils.RED)
+        #Utils.printColor("========================================= 国庆节快乐! =========================================", Utils.RED)
