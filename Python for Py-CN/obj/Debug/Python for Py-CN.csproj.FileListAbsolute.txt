@@ -1,0 +1,12 @@
+F:\VS 2022\repos\Python for Py-CN\bin\Debug\Python for Py-CN.exe.config
+F:\VS 2022\repos\Python for Py-CN\bin\Debug\Python for Py-CN.exe
+F:\VS 2022\repos\Python for Py-CN\bin\Debug\Python for Py-CN.pdb
+F:\VS 2022\repos\Python for Py-CN\obj\Debug\Python for Py-CN.csproj.AssemblyReference.cache
+F:\VS 2022\repos\Python for Py-CN\obj\Debug\Python for Py-CN.csproj.SuggestedBindingRedirects.cache
+F:\VS 2022\repos\Python for Py-CN\obj\Debug\Python_for_Py_CN.Properties.Resources.resources
+F:\VS 2022\repos\Python for Py-CN\obj\Debug\Python for Py-CN.csproj.GenerateResource.cache
+F:\VS 2022\repos\Python for Py-CN\obj\Debug\Python for Py-CN.csproj.CoreCompileInputs.cache
+F:\VS 2022\repos\Python for Py-CN\obj\Debug\Python for Py-CN.exe
+F:\VS 2022\repos\Python for Py-CN\obj\Debug\Python for Py-CN.pdb
+F:\VS 2022\repos\Python for Py-CN\obj\Debug\Python_for_Py_CN.Entry.resources
+F:\VS 2022\repos\Python for Py-CN\obj\Debug\Python_for_Py_CN.ProgramEntry.resources
