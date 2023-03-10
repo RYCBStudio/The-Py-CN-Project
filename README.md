@@ -3,6 +3,8 @@
 ### 这是一个为了方便国人编写Python程序的项目。
 ##### Thanks for [Bilibili@**阿-岳同学**](https://space.bilibili.com/480804525)的灵感!
 
+## 参看[*Wiki*](https://github.com/RYCBStudio/The-Py-CN-Project/wiki)。
+
 ## 我该怎么使用它？
 1. 首先，下载Python（如果你没有的话，推荐3.10+）
 2. 然后，下载本项目
